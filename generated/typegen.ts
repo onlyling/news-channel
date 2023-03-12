@@ -3,7 +3,7 @@
  * Do not make changes to this file directly
  */
 
-import type { Context } from './../schema/context'
+import type { Context } from './../src/libs/context'
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -30,7 +30,12 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   LoginResponse: {
     // root type
-    token?: string | null // String
+    message: string // String!
+  }
+  MeResponse: {
+    // root type
+    id?: number | null // Int
+    username?: string | null // String
   }
   Mutation: {}
   Post: {
@@ -50,6 +55,10 @@ export interface NexusGenObjects {
     password: string // String!
     username: string // String!
   }
+  _service: {
+    // root type
+    sdl: string // String!
+  }
 }
 
 export interface NexusGenInterfaces {}
@@ -63,7 +72,12 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   LoginResponse: {
     // field return type
-    token: string | null // String
+    message: string // String!
+  }
+  MeResponse: {
+    // field return type
+    id: number | null // Int
+    username: string | null // String
   }
   Mutation: {
     // field return type
@@ -80,7 +94,8 @@ export interface NexusGenFieldTypes {
   }
   Query: {
     // field return type
-    ok: boolean // Boolean!
+    _service: NexusGenRootTypes['_service'] | null // _service
+    me: NexusGenRootTypes['MeResponse'] | null // MeResponse
   }
   User: {
     // field return type
@@ -90,12 +105,21 @@ export interface NexusGenFieldTypes {
     posts: Array<NexusGenRootTypes['Post'] | null> // [Post]!
     username: string // String!
   }
+  _service: {
+    // field return type
+    sdl: string // String!
+  }
 }
 
 export interface NexusGenFieldTypeNames {
   LoginResponse: {
     // field return type name
-    token: 'String'
+    message: 'String'
+  }
+  MeResponse: {
+    // field return type name
+    id: 'Int'
+    username: 'String'
   }
   Mutation: {
     // field return type name
@@ -112,7 +136,8 @@ export interface NexusGenFieldTypeNames {
   }
   Query: {
     // field return type name
-    ok: 'Boolean'
+    _service: '_service'
+    me: 'MeResponse'
   }
   User: {
     // field return type name
@@ -121,6 +146,10 @@ export interface NexusGenFieldTypeNames {
     password: 'String'
     posts: 'Post'
     username: 'String'
+  }
+  _service: {
+    // field return type name
+    sdl: 'String'
   }
 }
 
@@ -153,7 +182,7 @@ export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never
 
 export type NexusGenAbstractsUsingStrategyResolveType = never
 
-export interface NexusGenFeaturesConfig {
+export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {
     isTypeOf: false
     resolveType: true

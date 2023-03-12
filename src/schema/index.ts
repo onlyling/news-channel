@@ -3,16 +3,19 @@ import path from 'path'
 import { makeSchema } from 'nexus'
 import NexusPrismaScalars from 'nexus-prisma/scalars'
 
+import { SCHEMA_GRAPHQL, TYPEGEN_TS } from '../../config'
+
+import * as _Service from './_service'
 import * as User from './user'
 
 export const schema = makeSchema({
-  types: [NexusPrismaScalars, User],
+  types: [NexusPrismaScalars, _Service, User],
   outputs: {
-    schema: path.join(__dirname, '..', 'generated', 'schema.graphql'),
-    typegen: path.join(__dirname, '..', 'generated', 'typegen.ts'),
+    schema: path.resolve(__dirname, '../..', SCHEMA_GRAPHQL),
+    typegen: path.resolve(__dirname, '../..', TYPEGEN_TS),
   },
   contextType: {
-    module: path.join(__dirname, 'context.ts'),
+    module: path.join(__dirname, '../libs', 'context.ts'),
     export: 'Context',
   },
   // sourceTypes: {

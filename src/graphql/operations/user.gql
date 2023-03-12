@@ -1,0 +1,12 @@
+mutation login($input: LoginInput!) {
+  login(input: $input) {
+    message
+  }
+}
+
+query me {
+  me {
+    id
+    username
+  }
+}
