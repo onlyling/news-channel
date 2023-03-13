@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
 import { useApollo } from '../graphql/client'
 
@@ -11,6 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient}>
+      <Head>
+        <title>News Channel</title>
+      </Head>
       <Component {...pageProps} />
     </ApolloProvider>
   )

@@ -6,7 +6,7 @@ export interface Session {
   username: string
 }
 
-type GetSession = () => Promise<Session>
+type GetSession = () => Promise<Session | undefined>
 
 type SetSession = (t: Session) => Promise<void>
 

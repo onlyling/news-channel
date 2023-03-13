@@ -2,12 +2,12 @@ import React from 'react'
 
 import LayoutAdmin from '@/layouts/admin'
 
-const AdminHome: React.FC = () => {
+const AdminPostAdd: React.FC = () => {
   return (
     <LayoutAdmin>
-      <div>第3个页面</div>
+      <div>Post Add</div>
     </LayoutAdmin>
   )
 }
 
-export default AdminHome
+export default AdminPostAdd

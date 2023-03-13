@@ -14,7 +14,7 @@ export interface LoginMutation {
 export type MeQueryVariables = SchemaTypes.Exact<{ [key: string]: never }>
 
 export interface MeQuery {
-  me?: { __typename?: 'MeResponse'; id: number; username: string }
+  me?: { __typename?: 'MeResponse'; id?: number; username?: string }
 }
 
 export const LoginDocument = gql`

@@ -10,10 +10,24 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CategoryAddInput: {
+    // input type
+    id?: number | null // Int
+    name: string // String!
+  }
+  CategoryPageInput: {
+    // input type
+    name?: string | null // String
+  }
   LoginInput: {
     // input type
     password: string // String!
     username: string // String!
+  }
+  Page: {
+    // input type
+    pageCurrent: number // Int!
+    pageSize: number // Int!
   }
 }
 
@@ -28,6 +42,22 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Category: {
+    // root type
+    id: number // Int!
+    name: string // String!
+  }
+  CategoryAddResponse: {
+    // root type
+    category?: NexusGenRootTypes['Category'] | null // Category
+  }
+  CategoryPageResponse: {
+    // root type
+    current: number // Int!
+    pageSize: number // Int!
+    records: NexusGenRootTypes['Category'][] // [Category!]!
+    total: number // Int!
+  }
   LoginResponse: {
     // root type
     message: string // String!
@@ -70,6 +100,22 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Category: {
+    // field return type
+    id: number // Int!
+    name: string // String!
+  }
+  CategoryAddResponse: {
+    // field return type
+    category: NexusGenRootTypes['Category'] | null // Category
+  }
+  CategoryPageResponse: {
+    // field return type
+    current: number // Int!
+    pageSize: number // Int!
+    records: NexusGenRootTypes['Category'][] // [Category!]!
+    total: number // Int!
+  }
   LoginResponse: {
     // field return type
     message: string // String!
@@ -81,6 +127,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: {
     // field return type
+    categoryAdd: NexusGenRootTypes['CategoryAddResponse'] | null // CategoryAddResponse
     login: NexusGenRootTypes['LoginResponse'] | null // LoginResponse
   }
   Post: {
@@ -95,6 +142,7 @@ export interface NexusGenFieldTypes {
   Query: {
     // field return type
     _service: NexusGenRootTypes['_service'] | null // _service
+    categoryPage: NexusGenRootTypes['CategoryPageResponse'] | null // CategoryPageResponse
     me: NexusGenRootTypes['MeResponse'] | null // MeResponse
   }
   User: {
@@ -112,6 +160,22 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Category: {
+    // field return type name
+    id: 'Int'
+    name: 'String'
+  }
+  CategoryAddResponse: {
+    // field return type name
+    category: 'Category'
+  }
+  CategoryPageResponse: {
+    // field return type name
+    current: 'Int'
+    pageSize: 'Int'
+    records: 'Category'
+    total: 'Int'
+  }
   LoginResponse: {
     // field return type name
     message: 'String'
@@ -123,6 +187,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: {
     // field return type name
+    categoryAdd: 'CategoryAddResponse'
     login: 'LoginResponse'
   }
   Post: {
@@ -137,6 +202,7 @@ export interface NexusGenFieldTypeNames {
   Query: {
     // field return type name
     _service: '_service'
+    categoryPage: 'CategoryPageResponse'
     me: 'MeResponse'
   }
   User: {
@@ -155,9 +221,20 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    categoryAdd: {
+      // args
+      input: NexusGenInputs['CategoryAddInput'] // CategoryAddInput!
+    }
     login: {
       // args
       input: NexusGenInputs['LoginInput'] // LoginInput!
+    }
+  }
+  Query: {
+    categoryPage: {
+      // args
+      input?: NexusGenInputs['CategoryPageInput'] | null // CategoryPageInput
+      page?: NexusGenInputs['Page'] | null // Page
     }
   }
 }

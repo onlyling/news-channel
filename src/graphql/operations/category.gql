@@ -1,0 +1,20 @@
+query CategoryPage($input: CategoryPageInput, $page: Page) {
+  categoryPage(input: $input, page: $page) {
+    current
+    pageSize
+    total
+    records {
+      id
+      name
+    }
+  }
+}
+
+mutation Mutation($input: CategoryAddInput!) {
+  categoryAdd(input: $input) {
+    category {
+      id
+      name
+    }
+  }
+}

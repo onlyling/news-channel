@@ -12,6 +12,34 @@ export interface Scalars {
   Float: number;
 }
 
+export interface Category {
+  __typename?: 'Category';
+  id: Scalars['Int'];
+  name: Scalars['String'];
+}
+
+export interface CategoryAddInput {
+  id?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+}
+
+export interface CategoryAddResponse {
+  __typename?: 'CategoryAddResponse';
+  category?: Maybe<Category>;
+}
+
+export interface CategoryPageInput {
+  name?: InputMaybe<Scalars['String']>;
+}
+
+export interface CategoryPageResponse {
+  __typename?: 'CategoryPageResponse';
+  current: Scalars['Int'];
+  pageSize: Scalars['Int'];
+  records: Array<Category>;
+  total: Scalars['Int'];
+}
+
 export interface LoginInput {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -24,18 +52,29 @@ export interface LoginResponse {
 
 export interface MeResponse {
   __typename?: 'MeResponse';
-  id: Scalars['Int'];
-  username: Scalars['String'];
+  id?: Maybe<Scalars['Int']>;
+  username?: Maybe<Scalars['String']>;
 }
 
 export interface Mutation {
   __typename?: 'Mutation';
+  categoryAdd?: Maybe<CategoryAddResponse>;
   login?: Maybe<LoginResponse>;
+}
+
+
+export interface MutationCategoryAddArgs {
+  input: CategoryAddInput;
 }
 
 
 export interface MutationLoginArgs {
   input: LoginInput;
+}
+
+export interface Page {
+  pageCurrent: Scalars['Int'];
+  pageSize: Scalars['Int'];
 }
 
 export interface Post {
@@ -51,7 +90,14 @@ export interface Post {
 export interface Query {
   __typename?: 'Query';
   _service?: Maybe<_Service>;
+  categoryPage?: Maybe<CategoryPageResponse>;
   me?: Maybe<MeResponse>;
+}
+
+
+export interface QueryCategoryPageArgs {
+  input?: InputMaybe<CategoryPageInput>;
+  page?: InputMaybe<Page>;
 }
 
 export interface User {
