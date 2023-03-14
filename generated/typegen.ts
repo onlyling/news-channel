@@ -33,6 +33,11 @@ export interface NexusGenInputs {
     pageCurrent: number // Int!
     pageSize: number // Int!
   }
+  PostPageInput: {
+    // input type
+    categoryId?: number | null // Int
+    keyword?: string | null // String
+  }
 }
 
 export interface NexusGenEnums {}
@@ -84,6 +89,13 @@ export interface NexusGenObjects {
     id: number // Int!
     published: boolean // Boolean!
     title: string // String!
+  }
+  PostPageResponse: {
+    // root type
+    current: number // Int!
+    pageSize: number // Int!
+    records: NexusGenRootTypes['Post'][] // [Post!]!
+    total: number // Int!
   }
   Query: {}
   User: {
@@ -145,18 +157,29 @@ export interface NexusGenFieldTypes {
   }
   Post: {
     // field return type
+    author: string // String!
     authorId: number // Int!
+    category: string // String!
     categoryId: number // Int!
     content: string | null // String
     id: number // Int!
     published: boolean // Boolean!
     title: string // String!
   }
+  PostPageResponse: {
+    // field return type
+    current: number // Int!
+    pageSize: number // Int!
+    records: NexusGenRootTypes['Post'][] // [Post!]!
+    total: number // Int!
+  }
   Query: {
     // field return type
     _service: NexusGenRootTypes['_service'] | null // _service
+    categoryList: NexusGenRootTypes['Category'][] // [Category!]!
     categoryPage: NexusGenRootTypes['CategoryPageResponse'] // CategoryPageResponse!
     me: NexusGenRootTypes['MeResponse'] // MeResponse!
+    postPage: NexusGenRootTypes['PostPageResponse'] // PostPageResponse!
   }
   User: {
     // field return type
@@ -210,18 +233,29 @@ export interface NexusGenFieldTypeNames {
   }
   Post: {
     // field return type name
+    author: 'String'
     authorId: 'Int'
+    category: 'String'
     categoryId: 'Int'
     content: 'String'
     id: 'Int'
     published: 'Boolean'
     title: 'String'
   }
+  PostPageResponse: {
+    // field return type name
+    current: 'Int'
+    pageSize: 'Int'
+    records: 'Post'
+    total: 'Int'
+  }
   Query: {
     // field return type name
     _service: '_service'
+    categoryList: 'Category'
     categoryPage: 'CategoryPageResponse'
     me: 'MeResponse'
+    postPage: 'PostPageResponse'
   }
   User: {
     // field return type name
@@ -256,6 +290,11 @@ export interface NexusGenArgTypes {
     categoryPage: {
       // args
       input?: NexusGenInputs['CategoryPageInput'] | null // CategoryPageInput
+      page?: NexusGenInputs['Page'] | null // Page
+    }
+    postPage: {
+      // args
+      input?: NexusGenInputs['PostPageInput'] | null // PostPageInput
       page?: NexusGenInputs['Page'] | null // Page
     }
   }

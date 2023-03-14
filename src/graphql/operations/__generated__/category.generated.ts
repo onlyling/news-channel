@@ -37,8 +37,16 @@ export interface CategoryDeleteMutation {
   categoryDelete: { __typename?: 'CategoryDeleteResponse'; message: string }
 }
 
+export type CategoryListQueryVariables = SchemaTypes.Exact<{
+  [key: string]: never
+}>
+
+export interface CategoryListQuery {
+  categoryList: Array<{ __typename?: 'Category'; value: number; label: string }>
+}
+
 export const CategoryPageDocument = gql`
-  query CategoryPage($input: CategoryPageInput, $page: Page) {
+  query categoryPage($input: CategoryPageInput, $page: Page) {
     categoryPage(input: $input, page: $page) {
       current
       pageSize
@@ -204,4 +212,62 @@ export type CategoryDeleteMutationResult =
 export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<
   CategoryDeleteMutation,
   CategoryDeleteMutationVariables
+>
+export const CategoryListDocument = gql`
+  query categoryList {
+    categoryList {
+      value: id
+      label: name
+    }
+  }
+`
+
+/**
+ * __useCategoryListQuery__
+ *
+ * To run a query within a React component, call `useCategoryListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoryListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoryListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCategoryListQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    CategoryListQuery,
+    CategoryListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<CategoryListQuery, CategoryListQueryVariables>(
+    CategoryListDocument,
+    options,
+  )
+}
+export function useCategoryListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CategoryListQuery,
+    CategoryListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<CategoryListQuery, CategoryListQueryVariables>(
+    CategoryListDocument,
+    options,
+  )
+}
+export type CategoryListQueryHookResult = ReturnType<
+  typeof useCategoryListQuery
+>
+export type CategoryListLazyQueryHookResult = ReturnType<
+  typeof useCategoryListLazyQuery
+>
+export type CategoryListQueryResult = Apollo.QueryResult<
+  CategoryListQuery,
+  CategoryListQueryVariables
 >

@@ -33,7 +33,7 @@ const SiderMenu: React.FC = () => {
     [pathname],
   )
 
-  const onSelect = useCallback<Required<MenuProps>['onSelect']>(
+  const onClick = useCallback<Required<MenuProps>['onClick']>(
     ({ key }) => {
       console.log('key => ', key)
       push(key)
@@ -47,7 +47,7 @@ const SiderMenu: React.FC = () => {
       theme="dark"
       items={items}
       selectedKeys={selectedKeys}
-      onSelect={onSelect}
+      onClick={onClick}
     />
   )
 }

@@ -62,3 +62,7 @@ export const CategoryDeleteResponse = objectType({
     t.nonNull.string('message')
   },
 })
+
+// export const CategoryListResponse = objectType({
+//   name: 'CategoryListResponse',
+// })

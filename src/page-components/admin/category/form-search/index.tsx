@@ -19,7 +19,7 @@ const AdminCategoryFormSearch: React.FC<AdminCategoryFormSearchProps> = ({
         <Row>
           <Col span={6}>
             <Form.Item label="分类名称" name="name">
-              <Input placeholder="请输入分类名称" />
+              <Input placeholder="请输入分类名称" allowClear />
             </Form.Item>
           </Col>
         </Row>

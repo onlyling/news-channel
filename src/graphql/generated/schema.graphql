@@ -60,7 +60,9 @@ input Page {
 }
 
 type Post {
+  author: String!
   authorId: Int!
+  category: String!
   categoryId: Int!
   content: String
   id: Int!
@@ -68,10 +70,24 @@ type Post {
   title: String!
 }
 
+input PostPageInput {
+  categoryId: Int
+  keyword: String
+}
+
+type PostPageResponse {
+  current: Int!
+  pageSize: Int!
+  records: [Post!]!
+  total: Int!
+}
+
 type Query {
   _service: _service
+  categoryList: [Category!]!
   categoryPage(input: CategoryPageInput, page: Page): CategoryPageResponse!
   me: MeResponse!
+  postPage(input: PostPageInput, page: Page): PostPageResponse!
 }
 
 type User {

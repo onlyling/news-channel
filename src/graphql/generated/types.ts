@@ -94,7 +94,9 @@ export interface Page {
 
 export interface Post {
   __typename?: 'Post';
+  author: Scalars['String'];
   authorId: Scalars['Int'];
+  category: Scalars['String'];
   categoryId: Scalars['Int'];
   content?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -102,16 +104,37 @@ export interface Post {
   title: Scalars['String'];
 }
 
+export interface PostPageInput {
+  categoryId?: InputMaybe<Scalars['Int']>;
+  keyword?: InputMaybe<Scalars['String']>;
+}
+
+export interface PostPageResponse {
+  __typename?: 'PostPageResponse';
+  current: Scalars['Int'];
+  pageSize: Scalars['Int'];
+  records: Array<Post>;
+  total: Scalars['Int'];
+}
+
 export interface Query {
   __typename?: 'Query';
   _service?: Maybe<_Service>;
+  categoryList: Array<Category>;
   categoryPage: CategoryPageResponse;
   me: MeResponse;
+  postPage: PostPageResponse;
 }
 
 
 export interface QueryCategoryPageArgs {
   input?: InputMaybe<CategoryPageInput>;
+  page?: InputMaybe<Page>;
+}
+
+
+export interface QueryPostPageArgs {
+  input?: InputMaybe<PostPageInput>;
   page?: InputMaybe<Page>;
 }
 

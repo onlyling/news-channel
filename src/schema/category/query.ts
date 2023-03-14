@@ -1,8 +1,8 @@
-import { nonNull, queryField } from 'nexus'
+import { list, nonNull, queryField } from 'nexus'
 
 import { Page } from '../common/types'
 
-import { CategoryPageInput, CategoryPageResponse } from './types'
+import { CategoryPageInput, CategoryPageResponse, Category } from './types'
 
 export const CategoryPage = queryField('categoryPage', {
   type: nonNull(CategoryPageResponse),
@@ -38,5 +38,14 @@ export const CategoryPage = queryField('categoryPage', {
       total: total,
       records: data,
     }
+  },
+})
+
+export const CategoryList = queryField('categoryList', {
+  type: nonNull(list(nonNull(Category))),
+  async resolve(root, args, context) {
+    const data = await context.prisma.category.findMany()
+
+    return data
   },
 })

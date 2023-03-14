@@ -1,4 +1,4 @@
-query CategoryPage($input: CategoryPageInput, $page: Page) {
+query categoryPage($input: CategoryPageInput, $page: Page) {
   categoryPage(input: $input, page: $page) {
     current
     pageSize
@@ -22,5 +22,12 @@ mutation categoryAdd($input: CategoryAddInput!) {
 mutation categoryDelete($input: CategoryDeleteInput!) {
   categoryDelete(input: $input) {
     message
+  }
+}
+
+query categoryList {
+  categoryList {
+    value: id
+    label: name
   }
 }

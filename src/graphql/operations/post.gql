@@ -1,0 +1,15 @@
+query postPage {
+  postPage {
+    total
+    current
+    pageSize
+    records {
+      id
+      title
+      published
+      categoryId
+      category
+      author
+    }
+  }
+}
