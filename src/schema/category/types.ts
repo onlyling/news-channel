@@ -48,3 +48,17 @@ export const CategoryAddResponse = objectType({
     })
   },
 })
+
+export const CategoryDeleteInput = inputObjectType({
+  name: 'CategoryDeleteInput',
+  definition(t) {
+    t.nonNull.int('id')
+  },
+})
+
+export const CategoryDeleteResponse = objectType({
+  name: 'CategoryDeleteResponse',
+  definition(t) {
+    t.nonNull.string('message')
+  },
+})

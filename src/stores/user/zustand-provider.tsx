@@ -13,7 +13,7 @@ export const StoreProvider = ({
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }
 
-export const useStore = (selector, eqFn) => {
+export const useStore = (selector: any, eqFn: any) => {
   const store = useContext(StoreContext)
   const values = store?.(selector, eqFn)
 

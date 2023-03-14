@@ -1,4 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/locale/zh_CN'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
@@ -11,11 +13,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState)
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <Head>
-        <title>News Channel</title>
-      </Head>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <ConfigProvider locale={zhCN}>
+      <ApolloProvider client={apolloClient}>
+        <Head>
+          <title>News Channel</title>
+        </Head>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </ConfigProvider>
   )
 }

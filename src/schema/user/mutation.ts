@@ -3,7 +3,7 @@ import { mutationField, nonNull } from 'nexus'
 import { LoginInput, LoginResponse } from './types'
 
 export const Login = mutationField('login', {
-  type: LoginResponse,
+  type: nonNull(LoginResponse),
   args: {
     input: nonNull(LoginInput),
   },

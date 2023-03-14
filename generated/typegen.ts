@@ -15,6 +15,10 @@ export interface NexusGenInputs {
     id?: number | null // Int
     name: string // String!
   }
+  CategoryDeleteInput: {
+    // input type
+    id: number // Int!
+  }
   CategoryPageInput: {
     // input type
     name?: string | null // String
@@ -50,6 +54,10 @@ export interface NexusGenObjects {
   CategoryAddResponse: {
     // root type
     category?: NexusGenRootTypes['Category'] | null // Category
+  }
+  CategoryDeleteResponse: {
+    // root type
+    message: string // String!
   }
   CategoryPageResponse: {
     // root type
@@ -109,6 +117,10 @@ export interface NexusGenFieldTypes {
     // field return type
     category: NexusGenRootTypes['Category'] | null // Category
   }
+  CategoryDeleteResponse: {
+    // field return type
+    message: string // String!
+  }
   CategoryPageResponse: {
     // field return type
     current: number // Int!
@@ -127,8 +139,9 @@ export interface NexusGenFieldTypes {
   }
   Mutation: {
     // field return type
-    categoryAdd: NexusGenRootTypes['CategoryAddResponse'] | null // CategoryAddResponse
-    login: NexusGenRootTypes['LoginResponse'] | null // LoginResponse
+    categoryAdd: NexusGenRootTypes['CategoryAddResponse'] // CategoryAddResponse!
+    categoryDelete: NexusGenRootTypes['CategoryDeleteResponse'] // CategoryDeleteResponse!
+    login: NexusGenRootTypes['LoginResponse'] // LoginResponse!
   }
   Post: {
     // field return type
@@ -142,8 +155,8 @@ export interface NexusGenFieldTypes {
   Query: {
     // field return type
     _service: NexusGenRootTypes['_service'] | null // _service
-    categoryPage: NexusGenRootTypes['CategoryPageResponse'] | null // CategoryPageResponse
-    me: NexusGenRootTypes['MeResponse'] | null // MeResponse
+    categoryPage: NexusGenRootTypes['CategoryPageResponse'] // CategoryPageResponse!
+    me: NexusGenRootTypes['MeResponse'] // MeResponse!
   }
   User: {
     // field return type
@@ -169,6 +182,10 @@ export interface NexusGenFieldTypeNames {
     // field return type name
     category: 'Category'
   }
+  CategoryDeleteResponse: {
+    // field return type name
+    message: 'String'
+  }
   CategoryPageResponse: {
     // field return type name
     current: 'Int'
@@ -188,6 +205,7 @@ export interface NexusGenFieldTypeNames {
   Mutation: {
     // field return type name
     categoryAdd: 'CategoryAddResponse'
+    categoryDelete: 'CategoryDeleteResponse'
     login: 'LoginResponse'
   }
   Post: {
@@ -224,6 +242,10 @@ export interface NexusGenArgTypes {
     categoryAdd: {
       // args
       input: NexusGenInputs['CategoryAddInput'] // CategoryAddInput!
+    }
+    categoryDelete: {
+      // args
+      input: NexusGenInputs['CategoryDeleteInput'] // CategoryDeleteInput!
     }
     login: {
       // args

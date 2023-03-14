@@ -1,11 +1,11 @@
-import { queryField } from 'nexus'
+import { nonNull, queryField } from 'nexus'
 
 import { Page } from '../common/types'
 
 import { CategoryPageInput, CategoryPageResponse } from './types'
 
 export const CategoryPage = queryField('categoryPage', {
-  type: CategoryPageResponse,
+  type: nonNull(CategoryPageResponse),
   args: {
     input: CategoryPageInput,
     page: Page,
@@ -17,7 +17,9 @@ export const CategoryPage = queryField('categoryPage', {
 
     const where = name
       ? {
-          name,
+          name: {
+            contains: name,
+          },
         }
       : {}
 
@@ -26,14 +28,14 @@ export const CategoryPage = queryField('categoryPage', {
       skip: (pageCurrent - 1) * pageSize,
       take: pageSize,
     })
-    const total = await context.prisma.category.findMany({
+    const total = await context.prisma.category.count({
       where,
     })
 
     return {
       current: pageCurrent,
       pageSize: pageSize,
-      total: total.length,
+      total: total,
       records: data,
     }
   },

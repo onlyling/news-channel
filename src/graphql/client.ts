@@ -27,6 +27,15 @@ function createApolloClient() {
     ssrMode: typeof window === 'undefined',
     link: createIsomorphLink(),
     cache: new InMemoryCache(),
+    defaultOptions: {
+      // 禁用缓存
+      watchQuery: {
+        fetchPolicy: 'network-only',
+      },
+      query: {
+        fetchPolicy: 'network-only',
+      },
+    },
   })
 }
 

@@ -12,7 +12,7 @@ const { Content, Sider } = Layout
 const LayoutAdmin: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <User>
-      <Layout className="h-[100vh]">
+      <Layout className="h-[100vh] overflow-hidden">
         <Sider>
           <div className="w-[180px] h-[32px] bg-white mx-auto my-auto mt-[8px] mb-[8px] rounded-[2px] text-center leading-[32px] text-blue-600">
             News Channel
@@ -21,7 +21,7 @@ const LayoutAdmin: React.FC<React.PropsWithChildren> = ({ children }) => {
           <SiderMenu />
         </Sider>
         <Layout>
-          <Content>{children}</Content>
+          <Content className="h-[100%] overflow-y-auto">{children}</Content>
         </Layout>
       </Layout>
     </User>

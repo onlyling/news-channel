@@ -15,6 +15,14 @@ type CategoryAddResponse {
   category: Category
 }
 
+input CategoryDeleteInput {
+  id: Int!
+}
+
+type CategoryDeleteResponse {
+  message: String!
+}
+
 input CategoryPageInput {
   name: String
 }
@@ -41,8 +49,9 @@ type MeResponse {
 }
 
 type Mutation {
-  categoryAdd(input: CategoryAddInput!): CategoryAddResponse
-  login(input: LoginInput!): LoginResponse
+  categoryAdd(input: CategoryAddInput!): CategoryAddResponse!
+  categoryDelete(input: CategoryDeleteInput!): CategoryDeleteResponse!
+  login(input: LoginInput!): LoginResponse!
 }
 
 input Page {
@@ -61,8 +70,8 @@ type Post {
 
 type Query {
   _service: _service
-  categoryPage(input: CategoryPageInput, page: Page): CategoryPageResponse
-  me: MeResponse
+  categoryPage(input: CategoryPageInput, page: Page): CategoryPageResponse!
+  me: MeResponse!
 }
 
 type User {

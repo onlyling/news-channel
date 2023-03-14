@@ -9,7 +9,7 @@ export type CategoryPageQueryVariables = SchemaTypes.Exact<{
 }>
 
 export interface CategoryPageQuery {
-  categoryPage?: {
+  categoryPage: {
     __typename?: 'CategoryPageResponse'
     current: number
     pageSize: number
@@ -18,15 +18,23 @@ export interface CategoryPageQuery {
   }
 }
 
-export type MutationMutationVariables = SchemaTypes.Exact<{
+export type CategoryAddMutationVariables = SchemaTypes.Exact<{
   input: SchemaTypes.CategoryAddInput
 }>
 
-export interface MutationMutation {
-  categoryAdd?: {
+export interface CategoryAddMutation {
+  categoryAdd: {
     __typename?: 'CategoryAddResponse'
     category?: { __typename?: 'Category'; id: number; name: string }
   }
+}
+
+export type CategoryDeleteMutationVariables = SchemaTypes.Exact<{
+  input: SchemaTypes.CategoryDeleteInput
+}>
+
+export interface CategoryDeleteMutation {
+  categoryDelete: { __typename?: 'CategoryDeleteResponse'; message: string }
 }
 
 export const CategoryPageDocument = gql`
@@ -94,8 +102,8 @@ export type CategoryPageQueryResult = Apollo.QueryResult<
   CategoryPageQuery,
   CategoryPageQueryVariables
 >
-export const MutationDocument = gql`
-  mutation Mutation($input: CategoryAddInput!) {
+export const CategoryAddDocument = gql`
+  mutation categoryAdd($input: CategoryAddInput!) {
     categoryAdd(input: $input) {
       category {
         id
@@ -104,43 +112,96 @@ export const MutationDocument = gql`
     }
   }
 `
-export type MutationMutationFn = Apollo.MutationFunction<
-  MutationMutation,
-  MutationMutationVariables
+export type CategoryAddMutationFn = Apollo.MutationFunction<
+  CategoryAddMutation,
+  CategoryAddMutationVariables
 >
 
 /**
- * __useMutationMutation__
+ * __useCategoryAddMutation__
  *
- * To run a mutation, you first call `useMutationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMutationMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCategoryAddMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCategoryAddMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [mutationMutation, { data, loading, error }] = useMutationMutation({
+ * const [categoryAddMutation, { data, loading, error }] = useCategoryAddMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useMutationMutation(
+export function useCategoryAddMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    MutationMutation,
-    MutationMutationVariables
+    CategoryAddMutation,
+    CategoryAddMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<MutationMutation, MutationMutationVariables>(
-    MutationDocument,
+  return Apollo.useMutation<CategoryAddMutation, CategoryAddMutationVariables>(
+    CategoryAddDocument,
     options,
   )
 }
-export type MutationMutationHookResult = ReturnType<typeof useMutationMutation>
-export type MutationMutationResult = Apollo.MutationResult<MutationMutation>
-export type MutationMutationOptions = Apollo.BaseMutationOptions<
-  MutationMutation,
-  MutationMutationVariables
+export type CategoryAddMutationHookResult = ReturnType<
+  typeof useCategoryAddMutation
+>
+export type CategoryAddMutationResult =
+  Apollo.MutationResult<CategoryAddMutation>
+export type CategoryAddMutationOptions = Apollo.BaseMutationOptions<
+  CategoryAddMutation,
+  CategoryAddMutationVariables
+>
+export const CategoryDeleteDocument = gql`
+  mutation categoryDelete($input: CategoryDeleteInput!) {
+    categoryDelete(input: $input) {
+      message
+    }
+  }
+`
+export type CategoryDeleteMutationFn = Apollo.MutationFunction<
+  CategoryDeleteMutation,
+  CategoryDeleteMutationVariables
+>
+
+/**
+ * __useCategoryDeleteMutation__
+ *
+ * To run a mutation, you first call `useCategoryDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCategoryDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [categoryDeleteMutation, { data, loading, error }] = useCategoryDeleteMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCategoryDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CategoryDeleteMutation,
+    CategoryDeleteMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CategoryDeleteMutation,
+    CategoryDeleteMutationVariables
+  >(CategoryDeleteDocument, options)
+}
+export type CategoryDeleteMutationHookResult = ReturnType<
+  typeof useCategoryDeleteMutation
+>
+export type CategoryDeleteMutationResult =
+  Apollo.MutationResult<CategoryDeleteMutation>
+export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<
+  CategoryDeleteMutation,
+  CategoryDeleteMutationVariables
 >

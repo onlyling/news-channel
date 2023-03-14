@@ -28,6 +28,15 @@ export interface CategoryAddResponse {
   category?: Maybe<Category>;
 }
 
+export interface CategoryDeleteInput {
+  id: Scalars['Int'];
+}
+
+export interface CategoryDeleteResponse {
+  __typename?: 'CategoryDeleteResponse';
+  message: Scalars['String'];
+}
+
 export interface CategoryPageInput {
   name?: InputMaybe<Scalars['String']>;
 }
@@ -58,13 +67,19 @@ export interface MeResponse {
 
 export interface Mutation {
   __typename?: 'Mutation';
-  categoryAdd?: Maybe<CategoryAddResponse>;
-  login?: Maybe<LoginResponse>;
+  categoryAdd: CategoryAddResponse;
+  categoryDelete: CategoryDeleteResponse;
+  login: LoginResponse;
 }
 
 
 export interface MutationCategoryAddArgs {
   input: CategoryAddInput;
+}
+
+
+export interface MutationCategoryDeleteArgs {
+  input: CategoryDeleteInput;
 }
 
 
@@ -90,8 +105,8 @@ export interface Post {
 export interface Query {
   __typename?: 'Query';
   _service?: Maybe<_Service>;
-  categoryPage?: Maybe<CategoryPageResponse>;
-  me?: Maybe<MeResponse>;
+  categoryPage: CategoryPageResponse;
+  me: MeResponse;
 }
 
 

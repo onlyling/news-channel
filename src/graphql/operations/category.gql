@@ -10,11 +10,17 @@ query CategoryPage($input: CategoryPageInput, $page: Page) {
   }
 }
 
-mutation Mutation($input: CategoryAddInput!) {
+mutation categoryAdd($input: CategoryAddInput!) {
   categoryAdd(input: $input) {
     category {
       id
       name
     }
+  }
+}
+
+mutation categoryDelete($input: CategoryDeleteInput!) {
+  categoryDelete(input: $input) {
+    message
   }
 }

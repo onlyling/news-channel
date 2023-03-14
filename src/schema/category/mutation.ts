@@ -1,9 +1,14 @@
 import { mutationField, nonNull } from 'nexus'
 
-import { CategoryAddInput, CategoryAddResponse } from './types'
+import {
+  CategoryAddInput,
+  CategoryAddResponse,
+  CategoryDeleteInput,
+  CategoryDeleteResponse,
+} from './types'
 
 export const CategoryAdd = mutationField('categoryAdd', {
-  type: CategoryAddResponse,
+  type: nonNull(CategoryAddResponse),
   args: {
     input: nonNull(CategoryAddInput),
   },
@@ -45,6 +50,31 @@ export const CategoryAdd = mutationField('categoryAdd', {
       })
 
       return { category }
+    }
+  },
+})
+
+export const CategoryDelete = mutationField('categoryDelete', {
+  type: nonNull(CategoryDeleteResponse),
+  args: {
+    input: nonNull(CategoryDeleteInput),
+  },
+  async resolve(root, args, context) {
+    const session = await context.getSession()
+
+    if (!session?.username) {
+      return Promise.reject(new Error('请登录后再操作'))
+    }
+
+    // TODO 校验分类下是否还有文章
+    await context.prisma.category.delete({
+      where: {
+        id: args.input.id,
+      },
+    })
+
+    return {
+      message: '已删除',
     }
   },
 })

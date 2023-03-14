@@ -1,42 +1,117 @@
-import { Card, Form, Input, Row, Col, Button, Space, Table } from 'antd'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { Form, Space, Table, Divider, Button, Card } from 'antd'
 import type { ColumnsType } from 'antd/es/table/interface'
-import React from 'react'
+import React, { useRef } from 'react'
 
-import type { CategoryPageQuery } from '@/graphql/operations/__generated__/category.generated'
+import {
+  CategoryPageDocument,
+  useCategoryDeleteMutation,
+} from '@/graphql/operations/__generated__/category.generated'
+import useTableRequest from '@/hooks/useTableRequest'
 import LayoutAdmin, { LayoutAdminContent } from '@/layouts/admin'
-
-type ItemData = CategoryPageQuery['categoryPage']
+import AdminCategoryFormSearch from '@/page-components/admin/category/form-search'
+import type { ItemData } from '@/page-components/admin/category/interface'
+import type { AdminCategoryModalAddInstance } from '@/page-components/admin/category/modal-add'
+import AdminCategoryModalAdd from '@/page-components/admin/category/modal-add'
 
 const AdminCategory: React.FC = () => {
   const [form] = Form.useForm()
+  const AdminCategoryModalAddRef = useRef<AdminCategoryModalAddInstance>(null)
+  const { tableProps, search } = useTableRequest<ItemData>({
+    gql: CategoryPageDocument,
+    gqlDataField: 'categoryPage',
+    buildVariables: (page, formData) => {
+      return {
+        input: formData,
+        page,
+      }
+    },
+    form,
+  })
+  const [mutationCategoryDelete, { loading: loadingCategoryDelete }] =
+    useCategoryDeleteMutation()
+  const { submit, reset } = search
 
-  const columns: ColumnsType<{}> = []
+  const columns: ColumnsType<ItemData> = [
+    {
+      title: '分类名称',
+      dataIndex: 'name',
+    },
+    {
+      title: '操作',
+      width: 200,
+      render: (_, record) => {
+        return (
+          <Space>
+            <a
+              onClick={() => {
+                AdminCategoryModalAddRef.current?.show({
+                  data: record,
+                  callback: () => {
+                    submit()
+                  },
+                })
+              }}>
+              编辑
+            </a>
+            <Divider type="vertical" />
+            <a
+              className="text-red-600 hover:text-red-300"
+              onClick={() => {
+                mutationCategoryDelete({
+                  variables: {
+                    input: {
+                      id: record.id,
+                    },
+                  },
+                }).then(() => {
+                  submit()
+                })
+              }}>
+              删除
+            </a>
+          </Space>
+        )
+      },
+    },
+  ]
 
   return (
     <LayoutAdmin>
       <LayoutAdminContent>
         <Space direction="vertical" className="w-[100%]" size="middle">
-          <Card>
-            <Form form={form}>
-              <Row>
-                <Col span={6}>
-                  <Form.Item label="分类名称">
-                    <Input placeholder="请输入分类名称" />
-                  </Form.Item>
-                </Col>
-              </Row>
-
-              <Space>
-                <Button type="primary">搜索</Button>
-                <Button>重置</Button>
-              </Space>
-            </Form>
-          </Card>
+          <AdminCategoryFormSearch
+            form={form}
+            onSubmit={submit}
+            onReset={reset}
+          />
 
           <Card>
-            <Table columns={columns} />
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                AdminCategoryModalAddRef.current?.show({
+                  callback: () => {
+                    submit()
+                  },
+                })
+              }}>
+              新增
+            </Button>
+
+            <div className="h-[12px]" />
+
+            <Table
+              rowKey="id"
+              columns={columns}
+              {...tableProps}
+              loading={tableProps.loading || loadingCategoryDelete}
+            />
           </Card>
         </Space>
+
+        <AdminCategoryModalAdd ref={AdminCategoryModalAddRef} />
       </LayoutAdminContent>
     </LayoutAdmin>
   )

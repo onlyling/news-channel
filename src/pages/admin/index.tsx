@@ -1,8 +1,12 @@
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, Spin } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useCallback } from 'react'
 
-import { useLoginMutation } from '@/graphql/operations/__generated__/user.generated'
+import Redirect from '@/components/redirect'
+import {
+  useLoginMutation,
+  useMeQuery,
+} from '@/graphql/operations/__generated__/user.generated'
 
 interface FormValues {
   username: string
@@ -10,9 +14,10 @@ interface FormValues {
 }
 
 const Admin: React.FC = () => {
-  const { push } = useRouter()
+  const { replace } = useRouter()
   const [form] = Form.useForm<FormValues>()
   const [mutationLogin, { loading: loadingLogin }] = useLoginMutation()
+  const { loading: loadingMe, data: dataMe } = useMeQuery()
   const onClickLogin = useCallback(() => {
     form.validateFields().then(values => {
       mutationLogin({
@@ -20,15 +25,22 @@ const Admin: React.FC = () => {
           input: values,
         },
       }).then(() => {
-        push('/admin/home')
-        console.log('>>')
+        replace('/admin/home')
       })
     })
-  }, [form, mutationLogin, push])
+  }, [form, mutationLogin, replace])
+
+  if (loadingMe) {
+    return <Spin />
+  }
+
+  if (typeof dataMe?.me.id === 'number') {
+    return <Redirect href="/admin/home" replace />
+  }
 
   return (
     <div className="w-[300px] mx-auto my-auto mt-2 mb-2 p-[12px] rounded-[4px] bg-slate-50">
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" autoComplete="off">
         <Form.Item
           label="用户名"
           name="username"
