@@ -48,9 +48,6 @@ export const PostPageInput = inputObjectType({
 
 export const PostPageResponse = objectType({
   name: 'PostPageResponse',
-  nonNullDefaults: {
-    output: true,
-  },
   definition(t) {
     t.nonNull.int('total')
     t.nonNull.int('pageSize')
@@ -58,5 +55,15 @@ export const PostPageResponse = objectType({
     t.nonNull.field('records', {
       type: list(Post),
     })
+  },
+})
+
+export const PostAddInput = inputObjectType({
+  name: 'PostAddInput',
+  definition(t) {
+    t.int('id')
+    t.nonNull.int('categoryId')
+    t.nonNull.string('title')
+    t.string('content')
   },
 })

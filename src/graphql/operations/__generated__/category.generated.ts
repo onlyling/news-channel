@@ -23,10 +23,7 @@ export type CategoryAddMutationVariables = SchemaTypes.Exact<{
 }>
 
 export interface CategoryAddMutation {
-  categoryAdd: {
-    __typename?: 'CategoryAddResponse'
-    category?: { __typename?: 'Category'; id: number; name: string }
-  }
+  categoryAdd: { __typename?: 'Category'; id: number; name: string }
 }
 
 export type CategoryDeleteMutationVariables = SchemaTypes.Exact<{
@@ -113,10 +110,8 @@ export type CategoryPageQueryResult = Apollo.QueryResult<
 export const CategoryAddDocument = gql`
   mutation categoryAdd($input: CategoryAddInput!) {
     categoryAdd(input: $input) {
-      category {
-        id
-        name
-      }
+      id
+      name
     }
   }
 `

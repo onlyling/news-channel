@@ -1,11 +1,14 @@
 import React from 'react'
 
-import LayoutAdmin from '@/layouts/admin'
+import LayoutAdmin, { LayoutAdminContent } from '@/layouts/admin'
+import AdminPostFormAdd from '@/page-components/admin/post/form-add'
 
 const AdminPostAdd: React.FC = () => {
   return (
     <LayoutAdmin>
-      <div>Post Add</div>
+      <LayoutAdminContent>
+        <AdminPostFormAdd />
+      </LayoutAdminContent>
     </LayoutAdmin>
   )
 }

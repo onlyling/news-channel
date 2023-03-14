@@ -12,10 +12,8 @@ query categoryPage($input: CategoryPageInput, $page: Page) {
 
 mutation categoryAdd($input: CategoryAddInput!) {
   categoryAdd(input: $input) {
-    category {
-      id
-      name
-    }
+    id
+    name
   }
 }
 

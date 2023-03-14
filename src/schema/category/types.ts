@@ -40,15 +40,6 @@ export const CategoryAddInput = inputObjectType({
   },
 })
 
-export const CategoryAddResponse = objectType({
-  name: 'CategoryAddResponse',
-  definition(t) {
-    t.field('category', {
-      type: Category,
-    })
-  },
-})
-
 export const CategoryDeleteInput = inputObjectType({
   name: 'CategoryDeleteInput',
   definition(t) {

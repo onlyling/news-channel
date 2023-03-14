@@ -2,13 +2,13 @@ import { mutationField, nonNull } from 'nexus'
 
 import {
   CategoryAddInput,
-  CategoryAddResponse,
+  Category,
   CategoryDeleteInput,
   CategoryDeleteResponse,
 } from './types'
 
 export const CategoryAdd = mutationField('categoryAdd', {
-  type: nonNull(CategoryAddResponse),
+  type: nonNull(Category),
   args: {
     input: nonNull(CategoryAddInput),
   },
@@ -31,7 +31,7 @@ export const CategoryAdd = mutationField('categoryAdd', {
         },
       })
 
-      return { category }
+      return category
     } else {
       const oldCategory = await context.prisma.category.findFirst({
         where: {
@@ -49,7 +49,7 @@ export const CategoryAdd = mutationField('categoryAdd', {
         },
       })
 
-      return { category }
+      return category
     }
   },
 })

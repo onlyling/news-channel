@@ -23,11 +23,6 @@ export interface CategoryAddInput {
   name: Scalars['String'];
 }
 
-export interface CategoryAddResponse {
-  __typename?: 'CategoryAddResponse';
-  category?: Maybe<Category>;
-}
-
 export interface CategoryDeleteInput {
   id: Scalars['Int'];
 }
@@ -67,9 +62,10 @@ export interface MeResponse {
 
 export interface Mutation {
   __typename?: 'Mutation';
-  categoryAdd: CategoryAddResponse;
+  categoryAdd: Category;
   categoryDelete: CategoryDeleteResponse;
   login: LoginResponse;
+  postAdd: Post;
 }
 
 
@@ -85,6 +81,11 @@ export interface MutationCategoryDeleteArgs {
 
 export interface MutationLoginArgs {
   input: LoginInput;
+}
+
+
+export interface MutationPostAddArgs {
+  input: PostAddInput;
 }
 
 export interface Page {
@@ -104,6 +105,13 @@ export interface Post {
   title: Scalars['String'];
 }
 
+export interface PostAddInput {
+  categoryId: Scalars['Int'];
+  content?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  title: Scalars['String'];
+}
+
 export interface PostPageInput {
   categoryId?: InputMaybe<Scalars['Int']>;
   keyword?: InputMaybe<Scalars['String']>;
@@ -113,7 +121,7 @@ export interface PostPageResponse {
   __typename?: 'PostPageResponse';
   current: Scalars['Int'];
   pageSize: Scalars['Int'];
-  records: Array<Post>;
+  records: Array<Maybe<Post>>;
   total: Scalars['Int'];
 }
 

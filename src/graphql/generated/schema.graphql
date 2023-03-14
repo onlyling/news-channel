@@ -11,10 +11,6 @@ input CategoryAddInput {
   name: String!
 }
 
-type CategoryAddResponse {
-  category: Category
-}
-
 input CategoryDeleteInput {
   id: Int!
 }
@@ -49,9 +45,10 @@ type MeResponse {
 }
 
 type Mutation {
-  categoryAdd(input: CategoryAddInput!): CategoryAddResponse!
+  categoryAdd(input: CategoryAddInput!): Category!
   categoryDelete(input: CategoryDeleteInput!): CategoryDeleteResponse!
   login(input: LoginInput!): LoginResponse!
+  postAdd(input: PostAddInput!): Post!
 }
 
 input Page {
@@ -70,6 +67,13 @@ type Post {
   title: String!
 }
 
+input PostAddInput {
+  categoryId: Int!
+  content: String
+  id: Int
+  title: String!
+}
+
 input PostPageInput {
   categoryId: Int
   keyword: String
@@ -78,7 +82,7 @@ input PostPageInput {
 type PostPageResponse {
   current: Int!
   pageSize: Int!
-  records: [Post!]!
+  records: [Post]!
   total: Int!
 }
 
