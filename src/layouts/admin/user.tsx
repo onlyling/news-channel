@@ -23,7 +23,7 @@ const LayoutAdminUser: React.FC<React.PropsWithChildren> = ({ children }) => {
     }
   }, [loadingMe, dataMe, replace])
 
-  if (loadingMe) {
+  if (loadingMe || typeof dataMe?.me?.id !== 'number') {
     return <Spin />
   }
 

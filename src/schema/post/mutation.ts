@@ -1,6 +1,8 @@
 import { mutationField, nonNull } from 'nexus'
 
-import { PostAddInput, Post } from './types'
+import { MessageResponse } from '../common/types'
+
+import { PostAddInput, Post, PostPublishInput } from './types'
 
 export const PostAdd = mutationField('postAdd', {
   type: nonNull(Post),
@@ -8,12 +10,10 @@ export const PostAdd = mutationField('postAdd', {
     input: nonNull(PostAddInput),
   },
   async resolve(root, args, context) {
+    await context.checkAdminPrivilege()
+
     const { input } = args
     const session = await context.getSession()
-
-    if (!session?.username) {
-      return Promise.reject(new Error('请登录后再操作'))
-    }
 
     if (typeof input.id === 'number') {
       const d = await context.prisma.post.update({
@@ -24,7 +24,8 @@ export const PostAdd = mutationField('postAdd', {
           title: input.title,
           categoryId: input.categoryId,
           content: input.content,
-          authorId: session.id,
+          published: input.published,
+          authorId: session!.id,
         },
       })
 
@@ -35,11 +36,37 @@ export const PostAdd = mutationField('postAdd', {
           title: input.title,
           categoryId: input.categoryId,
           content: input.content,
-          authorId: session.id,
+          published: input.published,
+          authorId: session!.id,
         },
       })
 
       return d
+    }
+  },
+})
+
+export const PostPublish = mutationField('postPublish', {
+  type: nonNull(MessageResponse),
+  args: {
+    input: nonNull(PostPublishInput),
+  },
+  async resolve(root, args, context) {
+    await context.checkAdminPrivilege()
+
+    const { input } = args
+
+    await context.prisma.post.update({
+      where: {
+        id: input.id,
+      },
+      data: {
+        published: input.published,
+      },
+    })
+
+    return {
+      message: '发布状态已更新',
     }
   },
 })

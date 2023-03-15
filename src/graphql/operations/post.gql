@@ -1,5 +1,5 @@
-query postPage {
-  postPage {
+query postPage($input: PostPageInput, $page: Page) {
+  postPage(input: $input, page: $page) {
     total
     current
     pageSize
@@ -7,9 +7,16 @@ query postPage {
       id
       title
       published
+      updatedAt
       categoryId
       category
       author
     }
+  }
+}
+
+mutation postAdd($input: PostAddInput!) {
+  postAdd(input: $input) {
+    id
   }
 }

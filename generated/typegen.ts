@@ -4,6 +4,87 @@
  */
 
 import type { Context } from './../src/libs/context'
+import type { core } from 'nexus'
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    /**
+     * The `BigInt` scalar type represents non-fractional signed whole numeric values.
+     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+     */
+    bigInt<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>,
+    ): void // "BigInt";
+    /**
+     * The `Byte` scalar type represents byte value as a Buffer
+     */
+    bytes<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>,
+    ): void // "Bytes";
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    dateTime<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>,
+    ): void // "DateTime";
+    /**
+     * An arbitrary-precision Decimal type
+     */
+    decimal<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>,
+    ): void // "Decimal";
+    /**
+     * The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+     */
+    json<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>,
+    ): void // "Json";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    /**
+     * The `BigInt` scalar type represents non-fractional signed whole numeric values.
+     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+     */
+    bigInt<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "BigInt";
+    /**
+     * The `Byte` scalar type represents byte value as a Buffer
+     */
+    bytes<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "Bytes";
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    dateTime<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "DateTime";
+    /**
+     * An arbitrary-precision Decimal type
+     */
+    decimal<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "Decimal";
+    /**
+     * The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+     */
+    json<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "Json";
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -38,12 +119,26 @@ export interface NexusGenInputs {
     categoryId: number // Int!
     content?: string | null // String
     id?: number | null // Int
+    published: boolean // Boolean!
     title: string // String!
+  }
+  PostDeleteInput: {
+    // input type
+    id: number // Int!
+  }
+  PostDetailInput: {
+    // input type
+    id: number // Int!
   }
   PostPageInput: {
     // input type
     categoryId?: number | null // Int
     keyword?: string | null // String
+  }
+  PostPublishInput: {
+    // input type
+    id: number // Int!
+    published: boolean // Boolean!
   }
 }
 
@@ -55,6 +150,11 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  BigInt: any
+  Bytes: any
+  DateTime: any
+  Decimal: any
+  Json: any
 }
 
 export interface NexusGenObjects {
@@ -63,10 +163,6 @@ export interface NexusGenObjects {
     id: number // Int!
     name: string // String!
   }
-  CategoryDeleteResponse: {
-    // root type
-    message: string // String!
-  }
   CategoryPageResponse: {
     // root type
     current: number // Int!
@@ -74,14 +170,14 @@ export interface NexusGenObjects {
     records: NexusGenRootTypes['Category'][] // [Category!]!
     total: number // Int!
   }
-  LoginResponse: {
-    // root type
-    message: string // String!
-  }
   MeResponse: {
     // root type
     id?: number | null // Int
     username?: string | null // String
+  }
+  MessageResponse: {
+    // root type
+    message: string // String!
   }
   Mutation: {}
   Post: {
@@ -89,9 +185,11 @@ export interface NexusGenObjects {
     authorId: number // Int!
     categoryId: number // Int!
     content?: string | null // String
+    createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: number // Int!
     published: boolean // Boolean!
     title: string // String!
+    updatedAt: NexusGenScalars['DateTime'] // DateTime!
   }
   PostPageResponse: {
     // root type
@@ -128,10 +226,6 @@ export interface NexusGenFieldTypes {
     id: number // Int!
     name: string // String!
   }
-  CategoryDeleteResponse: {
-    // field return type
-    message: string // String!
-  }
   CategoryPageResponse: {
     // field return type
     current: number // Int!
@@ -139,21 +233,22 @@ export interface NexusGenFieldTypes {
     records: NexusGenRootTypes['Category'][] // [Category!]!
     total: number // Int!
   }
-  LoginResponse: {
-    // field return type
-    message: string // String!
-  }
   MeResponse: {
     // field return type
     id: number | null // Int
     username: string | null // String
   }
+  MessageResponse: {
+    // field return type
+    message: string // String!
+  }
   Mutation: {
     // field return type
     categoryAdd: NexusGenRootTypes['Category'] // Category!
-    categoryDelete: NexusGenRootTypes['CategoryDeleteResponse'] // CategoryDeleteResponse!
-    login: NexusGenRootTypes['LoginResponse'] // LoginResponse!
+    categoryDelete: NexusGenRootTypes['MessageResponse'] // MessageResponse!
+    login: NexusGenRootTypes['MessageResponse'] // MessageResponse!
     postAdd: NexusGenRootTypes['Post'] // Post!
+    postPublish: NexusGenRootTypes['MessageResponse'] // MessageResponse!
   }
   Post: {
     // field return type
@@ -162,9 +257,11 @@ export interface NexusGenFieldTypes {
     category: string // String!
     categoryId: number // Int!
     content: string | null // String
+    createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: number // Int!
     published: boolean // Boolean!
     title: string // String!
+    updatedAt: NexusGenScalars['DateTime'] // DateTime!
   }
   PostPageResponse: {
     // field return type
@@ -179,6 +276,7 @@ export interface NexusGenFieldTypes {
     categoryList: NexusGenRootTypes['Category'][] // [Category!]!
     categoryPage: NexusGenRootTypes['CategoryPageResponse'] // CategoryPageResponse!
     me: NexusGenRootTypes['MeResponse'] // MeResponse!
+    postDetail: NexusGenRootTypes['Post'] // Post!
     postPage: NexusGenRootTypes['PostPageResponse'] // PostPageResponse!
   }
   User: {
@@ -201,10 +299,6 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     name: 'String'
   }
-  CategoryDeleteResponse: {
-    // field return type name
-    message: 'String'
-  }
   CategoryPageResponse: {
     // field return type name
     current: 'Int'
@@ -212,21 +306,22 @@ export interface NexusGenFieldTypeNames {
     records: 'Category'
     total: 'Int'
   }
-  LoginResponse: {
-    // field return type name
-    message: 'String'
-  }
   MeResponse: {
     // field return type name
     id: 'Int'
     username: 'String'
   }
+  MessageResponse: {
+    // field return type name
+    message: 'String'
+  }
   Mutation: {
     // field return type name
     categoryAdd: 'Category'
-    categoryDelete: 'CategoryDeleteResponse'
-    login: 'LoginResponse'
+    categoryDelete: 'MessageResponse'
+    login: 'MessageResponse'
     postAdd: 'Post'
+    postPublish: 'MessageResponse'
   }
   Post: {
     // field return type name
@@ -235,9 +330,11 @@ export interface NexusGenFieldTypeNames {
     category: 'String'
     categoryId: 'Int'
     content: 'String'
+    createdAt: 'DateTime'
     id: 'Int'
     published: 'Boolean'
     title: 'String'
+    updatedAt: 'DateTime'
   }
   PostPageResponse: {
     // field return type name
@@ -252,6 +349,7 @@ export interface NexusGenFieldTypeNames {
     categoryList: 'Category'
     categoryPage: 'CategoryPageResponse'
     me: 'MeResponse'
+    postDetail: 'Post'
     postPage: 'PostPageResponse'
   }
   User: {
@@ -286,12 +384,20 @@ export interface NexusGenArgTypes {
       // args
       input: NexusGenInputs['PostAddInput'] // PostAddInput!
     }
+    postPublish: {
+      // args
+      input: NexusGenInputs['PostPublishInput'] // PostPublishInput!
+    }
   }
   Query: {
     categoryPage: {
       // args
       input?: NexusGenInputs['CategoryPageInput'] | null // CategoryPageInput
       page?: NexusGenInputs['Page'] | null // Page
+    }
+    postDetail: {
+      // args
+      input: NexusGenInputs['PostDetailInput'] // PostDetailInput!
     }
     postPage: {
       // args

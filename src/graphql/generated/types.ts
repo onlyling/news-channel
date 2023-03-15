@@ -10,6 +10,11 @@ export interface Scalars {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BigInt: any;
+  Bytes: any;
+  DateTime: number;
+  Decimal: any;
+  Json: any;
 }
 
 export interface Category {
@@ -25,11 +30,6 @@ export interface CategoryAddInput {
 
 export interface CategoryDeleteInput {
   id: Scalars['Int'];
-}
-
-export interface CategoryDeleteResponse {
-  __typename?: 'CategoryDeleteResponse';
-  message: Scalars['String'];
 }
 
 export interface CategoryPageInput {
@@ -49,23 +49,24 @@ export interface LoginInput {
   username: Scalars['String'];
 }
 
-export interface LoginResponse {
-  __typename?: 'LoginResponse';
-  message: Scalars['String'];
-}
-
 export interface MeResponse {
   __typename?: 'MeResponse';
   id?: Maybe<Scalars['Int']>;
   username?: Maybe<Scalars['String']>;
 }
 
+export interface MessageResponse {
+  __typename?: 'MessageResponse';
+  message: Scalars['String'];
+}
+
 export interface Mutation {
   __typename?: 'Mutation';
   categoryAdd: Category;
-  categoryDelete: CategoryDeleteResponse;
-  login: LoginResponse;
+  categoryDelete: MessageResponse;
+  login: MessageResponse;
   postAdd: Post;
+  postPublish: MessageResponse;
 }
 
 
@@ -88,6 +89,11 @@ export interface MutationPostAddArgs {
   input: PostAddInput;
 }
 
+
+export interface MutationPostPublishArgs {
+  input: PostPublishInput;
+}
+
 export interface Page {
   pageCurrent: Scalars['Int'];
   pageSize: Scalars['Int'];
@@ -100,16 +106,27 @@ export interface Post {
   category: Scalars['String'];
   categoryId: Scalars['Int'];
   content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   published: Scalars['Boolean'];
   title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 }
 
 export interface PostAddInput {
   categoryId: Scalars['Int'];
   content?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  published: Scalars['Boolean'];
   title: Scalars['String'];
+}
+
+export interface PostDeleteInput {
+  id: Scalars['Int'];
+}
+
+export interface PostDetailInput {
+  id: Scalars['Int'];
 }
 
 export interface PostPageInput {
@@ -125,12 +142,18 @@ export interface PostPageResponse {
   total: Scalars['Int'];
 }
 
+export interface PostPublishInput {
+  id: Scalars['Int'];
+  published: Scalars['Boolean'];
+}
+
 export interface Query {
   __typename?: 'Query';
   _service?: Maybe<_Service>;
   categoryList: Array<Category>;
   categoryPage: CategoryPageResponse;
   me: MeResponse;
+  postDetail: Post;
   postPage: PostPageResponse;
 }
 
@@ -138,6 +161,11 @@ export interface Query {
 export interface QueryCategoryPageArgs {
   input?: InputMaybe<CategoryPageInput>;
   page?: InputMaybe<Page>;
+}
+
+
+export interface QueryPostDetailArgs {
+  input: PostDetailInput;
 }
 
 

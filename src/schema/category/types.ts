@@ -47,13 +47,6 @@ export const CategoryDeleteInput = inputObjectType({
   },
 })
 
-export const CategoryDeleteResponse = objectType({
-  name: 'CategoryDeleteResponse',
-  definition(t) {
-    t.nonNull.string('message')
-  },
-})
-
 // export const CategoryListResponse = objectType({
 //   name: 'CategoryListResponse',
 // })

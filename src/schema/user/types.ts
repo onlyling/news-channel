@@ -33,13 +33,6 @@ export const LoginInput = inputObjectType({
   },
 })
 
-export const LoginResponse = objectType({
-  name: 'LoginResponse',
-  definition(t) {
-    t.nonNull.string('message')
-  },
-})
-
 export const MeResponse = objectType({
   name: 'MeResponse',
   definition(t) {

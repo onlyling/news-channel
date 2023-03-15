@@ -8,7 +8,7 @@ export type LoginMutationVariables = SchemaTypes.Exact<{
 }>
 
 export interface LoginMutation {
-  login: { __typename?: 'LoginResponse'; message: string }
+  login: { __typename?: 'MessageResponse'; message: string }
 }
 
 export type MeQueryVariables = SchemaTypes.Exact<{ [key: string]: never }>

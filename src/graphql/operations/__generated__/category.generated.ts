@@ -31,7 +31,7 @@ export type CategoryDeleteMutationVariables = SchemaTypes.Exact<{
 }>
 
 export interface CategoryDeleteMutation {
-  categoryDelete: { __typename?: 'CategoryDeleteResponse'; message: string }
+  categoryDelete: { __typename?: 'MessageResponse'; message: string }
 }
 
 export type CategoryListQueryVariables = SchemaTypes.Exact<{

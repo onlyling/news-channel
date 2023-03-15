@@ -2,7 +2,7 @@ import { nonNull, queryField } from 'nexus'
 
 import { Page } from '../common/types'
 
-import { PostPageInput, PostPageResponse } from './types'
+import { PostPageInput, PostPageResponse, PostDetailInput, Post } from './types'
 
 export const PostPage = queryField('postPage', {
   type: nonNull(PostPageResponse),
@@ -26,6 +26,11 @@ export const PostPage = queryField('postPage', {
       where,
       skip: (pageCurrent - 1) * pageSize,
       take: pageSize,
+      orderBy: [
+        {
+          updatedAt: 'desc',
+        },
+      ],
     })
     const total = await context.prisma.post.count({
       where,
@@ -37,5 +42,25 @@ export const PostPage = queryField('postPage', {
       total: total,
       records: data,
     }
+  },
+})
+
+export const PostDetail = queryField('postDetail', {
+  type: nonNull(Post),
+  args: {
+    input: nonNull(PostDetailInput),
+  },
+  async resolve(root, args, context) {
+    const d = await context.prisma.post.findFirst({
+      where: {
+        id: args.input.id,
+      },
+    })
+
+    if (!d) {
+      return Promise.reject(new Error('数据不存在'))
+    }
+
+    return d
   },
 })

@@ -1,7 +1,7 @@
 import path from 'path'
 
 import { makeSchema } from 'nexus'
-import NexusPrismaScalars from 'nexus-prisma/scalars'
+import * as NexusPrismaScalars from 'nexus-prisma/scalars'
 
 import { SCHEMA_GRAPHQL, TYPEGEN_TS } from '../../config'
 
