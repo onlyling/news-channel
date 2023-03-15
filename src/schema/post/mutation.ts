@@ -2,7 +2,7 @@ import { mutationField, nonNull } from 'nexus'
 
 import { MessageResponse } from '../common/types'
 
-import { PostAddInput, Post, PostPublishInput } from './types'
+import { PostAddInput, Post, PostPublishInput, PostDeleteInput } from './types'
 
 export const PostAdd = mutationField('postAdd', {
   type: nonNull(Post),
@@ -67,6 +67,28 @@ export const PostPublish = mutationField('postPublish', {
 
     return {
       message: '发布状态已更新',
+    }
+  },
+})
+
+export const PostDelete = mutationField('postDelete', {
+  type: nonNull(MessageResponse),
+  args: {
+    input: nonNull(PostDeleteInput),
+  },
+  async resolve(root, args, context) {
+    await context.checkAdminPrivilege()
+
+    const { input } = args
+
+    await context.prisma.post.delete({
+      where: {
+        id: input.id,
+      },
+    })
+
+    return {
+      message: '已删除',
     }
   },
 })

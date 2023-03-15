@@ -20,3 +20,24 @@ mutation postAdd($input: PostAddInput!) {
     id
   }
 }
+
+query postDetail($input: PostDetailInput!) {
+  postDetail(input: $input) {
+    id
+    title
+    content
+    categoryId
+  }
+}
+
+mutation postPublish($input: PostPublishInput!) {
+  postPublish(input: $input) {
+    message
+  }
+}
+
+mutation postDelete($input: PostDeleteInput!) {
+  postDelete(input: $input) {
+    message
+  }
+}

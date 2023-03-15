@@ -2,10 +2,15 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Form, Space, Table, Divider, Button, Card, Tag } from 'antd'
 import type { ColumnsType } from 'antd/es/table/interface'
 import dayjs from 'dayjs'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-import { PostPageDocument } from '@/graphql/operations/__generated__/post.generated'
+import {
+  PostPageDocument,
+  usePostPublishMutation,
+  usePostDeleteMutation,
+} from '@/graphql/operations/__generated__/post.generated'
 import useTableRequest from '@/hooks/useTableRequest'
 import LayoutAdmin, { LayoutAdminContent } from '@/layouts/admin'
 import AdminPostFormSearch from '@/page-components/admin/post/form-search'
@@ -25,12 +30,22 @@ const AdminPost: React.FC = () => {
     },
     form,
   })
+  const [mutationPostPublish, { loading: loadingPostPublish }] =
+    usePostPublishMutation()
+  const [mutationPostDelete, { loading: loadingPostDelete }] =
+    usePostDeleteMutation()
+
   const { submit, reset } = search
 
   const columns: ColumnsType<ItemData> = [
     {
       title: '标题',
       dataIndex: 'title',
+    },
+    {
+      title: '分类',
+      dataIndex: 'category',
+      width: 120,
     },
     {
       title: '发布状态',
@@ -52,23 +67,37 @@ const AdminPost: React.FC = () => {
         return (
           <Space>
             {record.published ? (
-              <a>下架</a>
+              <a
+                onClick={() => {
+                  mutationPostPublish({
+                    variables: {
+                      input: {
+                        id: record.id,
+                        published: false,
+                      },
+                    },
+                  }).then(() => {
+                    submit()
+                  })
+                }}>
+                下架
+              </a>
             ) : (
               <>
-                <a>编辑</a>
+                <Link href={`/admin/post/edit/${record.id}`}>编辑</Link>
                 <Divider type="vertical" />
                 <a
                   className="text-red-600 hover:text-red-300"
                   onClick={() => {
-                    // mutationCategoryDelete({
-                    //   variables: {
-                    //     input: {
-                    //       id: record.id,
-                    //     },
-                    //   },
-                    // }).then(() => {
-                    //   submit()
-                    // })
+                    mutationPostDelete({
+                      variables: {
+                        input: {
+                          id: record.id,
+                        },
+                      },
+                    }).then(() => {
+                      submit()
+                    })
                   }}>
                   删除
                 </a>
@@ -98,7 +127,14 @@ const AdminPost: React.FC = () => {
 
             <div className="h-[12px]" />
 
-            <Table rowKey="id" columns={columns} {...tableProps} />
+            <Table
+              rowKey="id"
+              columns={columns}
+              {...tableProps}
+              loading={
+                tableProps.loading || loadingPostPublish || loadingPostDelete
+              }
+            />
           </Card>
         </Space>
       </LayoutAdminContent>

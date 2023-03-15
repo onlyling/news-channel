@@ -8,6 +8,7 @@ import { usePostAddMutation } from '@/graphql/operations/__generated__/post.gene
 import AdminPostEditor from '../editor'
 
 interface FormValues {
+  id: number
   title: string
   categoryId: number
   content: string
@@ -33,6 +34,7 @@ const AdminPostFormAdd: React.FC<AdminPostFormAddProps> = ({
       mutationPostAdd({
         variables: {
           input: {
+            id: values.id,
             title: values.title,
             categoryId: values.categoryId,
             content: values.content,
@@ -48,6 +50,10 @@ const AdminPostFormAdd: React.FC<AdminPostFormAddProps> = ({
 
   return (
     <Form form={form} initialValues={initialValues} layout="vertical">
+      <Form.Item hidden name="id">
+        <Input />
+      </Form.Item>
+
       <Card>
         <Form.Item
           label="分类"

@@ -30,7 +30,7 @@ export const Post = objectType({
       async resolve(root, args, context) {
         const c = await context.prisma.category.findFirst({
           where: {
-            id: root.authorId,
+            id: root.categoryId,
           },
         })
 

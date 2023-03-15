@@ -66,6 +66,7 @@ export interface Mutation {
   categoryDelete: MessageResponse;
   login: MessageResponse;
   postAdd: Post;
+  postDelete: MessageResponse;
   postPublish: MessageResponse;
 }
 
@@ -87,6 +88,11 @@ export interface MutationLoginArgs {
 
 export interface MutationPostAddArgs {
   input: PostAddInput;
+}
+
+
+export interface MutationPostDeleteArgs {
+  input: PostDeleteInput;
 }
 
 

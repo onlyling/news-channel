@@ -55,6 +55,16 @@ export const CategoryDelete = mutationField('categoryDelete', {
   async resolve(root, args, context) {
     await context.checkAdminPrivilege()
 
+    const p = await context.prisma.post.findFirst({
+      where: {
+        categoryId: args.input.id,
+      },
+    })
+
+    if (p) {
+      return Promise.reject(new Error('改分类下还有数据，不能删除'))
+    }
+
     // TODO 校验分类下是否还有文章
     await context.prisma.category.delete({
       where: {
