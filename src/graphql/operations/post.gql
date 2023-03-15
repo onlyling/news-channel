@@ -15,6 +15,21 @@ query postPage($input: PostPageInput, $page: Page) {
   }
 }
 
+query postPublishedPage($input: PostPageInput, $page: Page) {
+  postPublishedPage(input: $input, page: $page) {
+    total
+    pageSize
+    current
+    records {
+      id
+      title
+      updatedAt
+      author
+      category
+    }
+  }
+}
+
 mutation postAdd($input: PostAddInput!) {
   postAdd(input: $input) {
     id

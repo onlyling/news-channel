@@ -248,6 +248,7 @@ export interface NexusGenFieldTypes {
     categoryDelete: NexusGenRootTypes['MessageResponse'] // MessageResponse!
     login: NexusGenRootTypes['MessageResponse'] // MessageResponse!
     postAdd: NexusGenRootTypes['Post'] // Post!
+    postDelete: NexusGenRootTypes['MessageResponse'] // MessageResponse!
     postPublish: NexusGenRootTypes['MessageResponse'] // MessageResponse!
   }
   Post: {
@@ -278,6 +279,7 @@ export interface NexusGenFieldTypes {
     me: NexusGenRootTypes['MeResponse'] // MeResponse!
     postDetail: NexusGenRootTypes['Post'] // Post!
     postPage: NexusGenRootTypes['PostPageResponse'] // PostPageResponse!
+    postPublishedPage: NexusGenRootTypes['PostPageResponse'] // PostPageResponse!
   }
   User: {
     // field return type
@@ -321,6 +323,7 @@ export interface NexusGenFieldTypeNames {
     categoryDelete: 'MessageResponse'
     login: 'MessageResponse'
     postAdd: 'Post'
+    postDelete: 'MessageResponse'
     postPublish: 'MessageResponse'
   }
   Post: {
@@ -351,6 +354,7 @@ export interface NexusGenFieldTypeNames {
     me: 'MeResponse'
     postDetail: 'Post'
     postPage: 'PostPageResponse'
+    postPublishedPage: 'PostPageResponse'
   }
   User: {
     // field return type name
@@ -384,6 +388,10 @@ export interface NexusGenArgTypes {
       // args
       input: NexusGenInputs['PostAddInput'] // PostAddInput!
     }
+    postDelete: {
+      // args
+      input: NexusGenInputs['PostDeleteInput'] // PostDeleteInput!
+    }
     postPublish: {
       // args
       input: NexusGenInputs['PostPublishInput'] // PostPublishInput!
@@ -400,6 +408,11 @@ export interface NexusGenArgTypes {
       input: NexusGenInputs['PostDetailInput'] // PostDetailInput!
     }
     postPage: {
+      // args
+      input?: NexusGenInputs['PostPageInput'] | null // PostPageInput
+      page?: NexusGenInputs['Page'] | null // Page
+    }
+    postPublishedPage: {
       // args
       input?: NexusGenInputs['PostPageInput'] | null // PostPageInput
       page?: NexusGenInputs['Page'] | null // Page

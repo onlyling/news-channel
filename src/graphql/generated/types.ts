@@ -161,6 +161,7 @@ export interface Query {
   me: MeResponse;
   postDetail: Post;
   postPage: PostPageResponse;
+  postPublishedPage: PostPageResponse;
 }
 
 
@@ -176,6 +177,12 @@ export interface QueryPostDetailArgs {
 
 
 export interface QueryPostPageArgs {
+  input?: InputMaybe<PostPageInput>;
+  page?: InputMaybe<Page>;
+}
+
+
+export interface QueryPostPublishedPageArgs {
   input?: InputMaybe<PostPageInput>;
   page?: InputMaybe<Page>;
 }

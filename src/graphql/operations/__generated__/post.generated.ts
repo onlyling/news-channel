@@ -27,6 +27,28 @@ export interface PostPageQuery {
   }
 }
 
+export type PostPublishedPageQueryVariables = SchemaTypes.Exact<{
+  input?: SchemaTypes.InputMaybe<SchemaTypes.PostPageInput>
+  page?: SchemaTypes.InputMaybe<SchemaTypes.Page>
+}>
+
+export interface PostPublishedPageQuery {
+  postPublishedPage: {
+    __typename?: 'PostPageResponse'
+    total: number
+    pageSize: number
+    current: number
+    records: Array<{
+      __typename?: 'Post'
+      id: number
+      title: string
+      updatedAt: number
+      author: string
+      category: string
+    }>
+  }
+}
+
 export type PostAddMutationVariables = SchemaTypes.Exact<{
   input: SchemaTypes.PostAddInput
 }>
@@ -129,6 +151,74 @@ export type PostPageLazyQueryHookResult = ReturnType<
 export type PostPageQueryResult = Apollo.QueryResult<
   PostPageQuery,
   PostPageQueryVariables
+>
+export const PostPublishedPageDocument = gql`
+  query postPublishedPage($input: PostPageInput, $page: Page) {
+    postPublishedPage(input: $input, page: $page) {
+      total
+      pageSize
+      current
+      records {
+        id
+        title
+        updatedAt
+        author
+        category
+      }
+    }
+  }
+`
+
+/**
+ * __usePostPublishedPageQuery__
+ *
+ * To run a query within a React component, call `usePostPublishedPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostPublishedPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostPublishedPageQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *      page: // value for 'page'
+ *   },
+ * });
+ */
+export function usePostPublishedPageQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    PostPublishedPageQuery,
+    PostPublishedPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    PostPublishedPageQuery,
+    PostPublishedPageQueryVariables
+  >(PostPublishedPageDocument, options)
+}
+export function usePostPublishedPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PostPublishedPageQuery,
+    PostPublishedPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PostPublishedPageQuery,
+    PostPublishedPageQueryVariables
+  >(PostPublishedPageDocument, options)
+}
+export type PostPublishedPageQueryHookResult = ReturnType<
+  typeof usePostPublishedPageQuery
+>
+export type PostPublishedPageLazyQueryHookResult = ReturnType<
+  typeof usePostPublishedPageLazyQuery
+>
+export type PostPublishedPageQueryResult = Apollo.QueryResult<
+  PostPublishedPageQuery,
+  PostPublishedPageQueryVariables
 >
 export const PostAddDocument = gql`
   mutation postAdd($input: PostAddInput!) {
