@@ -1,11 +1,13 @@
 import React from 'react'
 
-import LayoutAdmin from '@/layouts/admin'
+import LayoutAdmin, { LayoutAdminContent } from '@/layouts/admin'
 
 const AdminHome: React.FC = () => {
   return (
     <LayoutAdmin>
-      <div>第3个页面</div>
+      <LayoutAdminContent>
+        <div>建设中...</div>
+      </LayoutAdminContent>
     </LayoutAdmin>
   )
 }

@@ -1,4 +1,6 @@
-import { HomeOutlined } from '@ant-design/icons'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import HighlightOutlined from '@ant-design/icons/HighlightOutlined'
+import HomeOutlined from '@ant-design/icons/HomeOutlined'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
@@ -13,12 +15,12 @@ const items: MenuProps['items'] = [
   {
     key: '/admin/category',
     label: '分类管理',
-    icon: <HomeOutlined />,
+    icon: <HighlightOutlined />,
   },
   {
     key: '/admin/post',
     label: '文章管理',
-    icon: <HomeOutlined />,
+    icon: <EditOutlined />,
   },
 ]
 
@@ -43,6 +45,7 @@ const SiderMenu: React.FC = () => {
 
   return (
     <Menu
+      className="flex-auto"
       mode="inline"
       theme="dark"
       items={items}

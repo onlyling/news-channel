@@ -2,10 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.ql-editor{
+.ql-editor {
   min-height: 100px !important;
   max-height: 400px;
   overflow: hidden;
   overflow-y: scroll;
   overflow-x: scroll;
+}
+
+.portal-sider-link {
+  border-right: 2px;
+  border-right-style: solid;
+  border-right-color: transparent;
+  transition: all 0.3s linear;
+}
+
+.portal-sider-link:hover,
+.portal-sider-link-active {
+  border-right-color: #1677ff;
+  background-color: rgba(230, 244, 255, 0.2);
 }
