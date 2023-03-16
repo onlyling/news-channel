@@ -1,25 +1,13 @@
-import type { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
 import { useCategoryListQuery } from '@/graphql/operations/__generated__/category.generated'
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  return {
-    props: {
-      a: 1,
-    },
-  }
-}
-
 const LayoutPortal: React.FC<
   React.PropsWithChildren<{
     activedCategory?: number
-    a?: number
   }>
-> = ({ children, activedCategory, a }) => {
-  console.log('a  ==== ', a)
-
+> = ({ children, activedCategory }) => {
   const { data: dataCategoryList } = useCategoryListQuery()
 
   return (

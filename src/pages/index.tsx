@@ -1,4 +1,1 @@
-export {
-  default,
-  getServerSideProps,
-} from '@/page-components/portal/page-category-list'
+export { default } from '@/page-components/portal/page-category-list'

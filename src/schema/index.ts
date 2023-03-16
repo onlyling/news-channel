@@ -21,14 +21,6 @@ export const schema = makeSchema({
     module: path.join(__dirname, '../libs', 'context.ts'),
     export: 'Context',
   },
-  // sourceTypes: {
-  //   modules: [
-  //     {
-  //       module: path.join(__dirname, 'typeDefs.ts'),
-  //       alias: 't',
-  //     },
-  //   ],
-  // },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   prettierConfig: require('@fruits-chain/prettier-config-preset'),
 })

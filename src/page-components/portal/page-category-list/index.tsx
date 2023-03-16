@@ -1,7 +1,6 @@
 import { Pagination, Spin, Form } from 'antd'
-import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { PostPublishedPageDocument } from '@/graphql/operations/__generated__/post.generated'
 import useTableRequest from '@/hooks/useTableRequest'
@@ -9,18 +8,13 @@ import LayoutPortal from '@/layouts/portal'
 import type { ItemData } from '@/page-components/portal/interface'
 import PortalListItem from '@/page-components/portal/list-item'
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  return {
-    props: {
-      a: 1,
-    },
-  }
-}
-
-const PageCategoryList: React.FC<{ a: number }> = ({ a }) => {
+const PageCategoryList: React.FC = () => {
   const { query } = useRouter()
   const [form] = Form.useForm()
-  const { tableProps } = useTableRequest<ItemData>({
+  const {
+    tableProps,
+    search: { submit },
+  } = useTableRequest<ItemData>({
     gql: PostPublishedPageDocument,
     gqlDataField: 'postPublishedPage',
     buildVariables: (page, formData) => {
@@ -30,8 +24,22 @@ const PageCategoryList: React.FC<{ a: number }> = ({ a }) => {
       }
     },
     form,
-    refreshDeps: [query.id],
+    manual: true,
   })
+
+  useEffect(() => {
+    form.setFieldValue('categoryId', +(query.id as string))
+    submit()
+  }, [form, query.id, submit])
+
+  const { onChange } = tableProps
+
+  const onChangePagination = useCallback(
+    (p: number, ps: number) => {
+      onChange({ current: p, pageSize: ps })
+    },
+    [onChange],
+  )
 
   return (
     <LayoutPortal activedCategory={query.id ? +query.id : undefined}>
@@ -49,6 +57,7 @@ const PageCategoryList: React.FC<{ a: number }> = ({ a }) => {
 
       <Pagination
         {...tableProps.pagination}
+        onChange={onChangePagination}
         size="small"
         className="flex justify-center py-[32px]"
       />
