@@ -3,7 +3,13 @@ import { nonNull, queryField } from 'nexus'
 import type { Context } from '../../libs/context'
 import { Page } from '../common/types'
 
-import { PostPageInput, PostPageResponse, PostDetailInput, Post } from './types'
+import {
+  PostPageInput,
+  PostPageResponse,
+  PostDetailInput,
+  Post,
+  PostPublishedDetailInput,
+} from './types'
 
 const postPage = async (
   context: Context,
@@ -54,8 +60,6 @@ export const PostPublishedPage = queryField('postPublishedPage', {
     page: Page,
   },
   async resolve(root, args, context) {
-    await context.checkAdminPrivilege()
-
     return await postPage(context, {
       categoryId: args.input?.categoryId,
       keyword: args.input?.keyword,
@@ -94,6 +98,27 @@ export const PostDetail = queryField('postDetail', {
     const d = await context.prisma.post.findFirst({
       where: {
         id: args.input.id,
+      },
+    })
+
+    if (!d) {
+      return Promise.reject(new Error('数据不存在'))
+    }
+
+    return d
+  },
+})
+
+export const PostPublishedDetail = queryField('postPublishedDetail', {
+  type: nonNull(Post),
+  args: {
+    input: nonNull(PostPublishedDetailInput),
+  },
+  async resolve(root, args, context) {
+    const d = await context.prisma.post.findFirst({
+      where: {
+        id: args.input.id,
+        published: true,
       },
     })
 

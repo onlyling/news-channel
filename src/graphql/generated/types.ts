@@ -12,7 +12,7 @@ export interface Scalars {
   Float: number;
   BigInt: any;
   Bytes: any;
-  DateTime: number;
+  DateTime: string;
   Decimal: any;
   Json: any;
 }
@@ -114,6 +114,7 @@ export interface Post {
   content?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
+  intro: Scalars['String'];
   published: Scalars['Boolean'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -123,6 +124,7 @@ export interface PostAddInput {
   categoryId: Scalars['Int'];
   content?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  intro: Scalars['String'];
   published: Scalars['Boolean'];
   title: Scalars['String'];
 }
@@ -153,6 +155,10 @@ export interface PostPublishInput {
   published: Scalars['Boolean'];
 }
 
+export interface PostPublishedDetailInput {
+  id: Scalars['Int'];
+}
+
 export interface Query {
   __typename?: 'Query';
   _service?: Maybe<_Service>;
@@ -161,6 +167,7 @@ export interface Query {
   me: MeResponse;
   postDetail: Post;
   postPage: PostPageResponse;
+  postPublishedDetail: Post;
   postPublishedPage: PostPageResponse;
 }
 
@@ -179,6 +186,11 @@ export interface QueryPostDetailArgs {
 export interface QueryPostPageArgs {
   input?: InputMaybe<PostPageInput>;
   page?: InputMaybe<Page>;
+}
+
+
+export interface QueryPostPublishedDetailArgs {
+  input: PostPublishedDetailInput;
 }
 
 

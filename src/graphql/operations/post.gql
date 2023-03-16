@@ -26,6 +26,7 @@ query postPublishedPage($input: PostPageInput, $page: Page) {
       updatedAt
       author
       category
+      intro
     }
   }
 }
@@ -42,6 +43,19 @@ query postDetail($input: PostDetailInput!) {
     title
     content
     categoryId
+  }
+}
+
+query postPublishedDetail($input: PostPublishedDetailInput!) {
+  postPublishedDetail(input: $input) {
+    id
+    title
+    intro
+    content
+    updatedAt
+    categoryId
+    author
+    category
   }
 }
 

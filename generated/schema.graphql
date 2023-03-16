@@ -91,6 +91,7 @@ type Post {
   content: String
   createdAt: DateTime!
   id: Int!
+  intro: String!
   published: Boolean!
   title: String!
   updatedAt: DateTime!
@@ -100,6 +101,7 @@ input PostAddInput {
   categoryId: Int!
   content: String
   id: Int
+  intro: String!
   published: Boolean!
   title: String!
 }
@@ -129,6 +131,10 @@ input PostPublishInput {
   published: Boolean!
 }
 
+input PostPublishedDetailInput {
+  id: Int!
+}
+
 type Query {
   _service: _service
   categoryList: [Category!]!
@@ -136,6 +142,7 @@ type Query {
   me: MeResponse!
   postDetail(input: PostDetailInput!): Post!
   postPage(input: PostPageInput, page: Page): PostPageResponse!
+  postPublishedDetail(input: PostPublishedDetailInput!): Post!
   postPublishedPage(input: PostPageInput, page: Page): PostPageResponse!
 }
 

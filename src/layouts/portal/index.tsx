@@ -1,17 +1,29 @@
+import type { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
 import { useCategoryListQuery } from '@/graphql/operations/__generated__/category.generated'
 
+export const getServerSideProps: GetServerSideProps = async context => {
+  return {
+    props: {
+      a: 1,
+    },
+  }
+}
+
 const LayoutPortal: React.FC<
   React.PropsWithChildren<{
     activedCategory?: number
+    a?: number
   }>
-> = ({ children, activedCategory }) => {
+> = ({ children, activedCategory, a }) => {
+  console.log('a  ==== ', a)
+
   const { data: dataCategoryList } = useCategoryListQuery()
 
   return (
-    <div className="bg-[#fcfcfc] min-h-[100vh]">
+    <div className="bg-[#fcfcfc] min-h-[100vh] portal-wrapper">
       <div className="max-w-[1600px] mx-auto flex">
         <div className="w-[25%] h-[100vh] sticky top-0 z-10 flex-shrink-0 text-right pt-[20px] pb-[40x] flex flex-col">
           <Link
@@ -25,7 +37,7 @@ const LayoutPortal: React.FC<
               return (
                 <Link
                   key={item.value}
-                  href={`/?c=${item.value}`}
+                  href={`/category/${item.value}`}
                   className={[
                     'pt-[12px] pr-[28px] pb-[12px] pl-[20px] block no-underline text-black text-[16px] portal-sider-link',
                     activedCategory === item.value
@@ -48,7 +60,7 @@ const LayoutPortal: React.FC<
             </Link>
           </div>
         </div>
-        <div className="w-[75%] min-h-[100vh] px-[20px] py-[20px] bg-white shadow-lg">
+        <div className="w-[75%] min-h-[100vh] py-[20px] bg-white shadow-lg">
           {children}
         </div>
       </div>

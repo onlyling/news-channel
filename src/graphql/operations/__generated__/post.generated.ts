@@ -19,7 +19,7 @@ export interface PostPageQuery {
       id: number
       title: string
       published: boolean
-      updatedAt: number
+      updatedAt: string
       categoryId: number
       category: string
       author: string
@@ -42,9 +42,10 @@ export interface PostPublishedPageQuery {
       __typename?: 'Post'
       id: number
       title: string
-      updatedAt: number
+      updatedAt: string
       author: string
       category: string
+      intro: string
     }>
   }
 }
@@ -68,6 +69,24 @@ export interface PostDetailQuery {
     title: string
     content?: string
     categoryId: number
+  }
+}
+
+export type PostPublishedDetailQueryVariables = SchemaTypes.Exact<{
+  input: SchemaTypes.PostPublishedDetailInput
+}>
+
+export interface PostPublishedDetailQuery {
+  postPublishedDetail: {
+    __typename?: 'Post'
+    id: number
+    title: string
+    intro: string
+    content?: string
+    updatedAt: string
+    categoryId: number
+    author: string
+    category: string
   }
 }
 
@@ -164,6 +183,7 @@ export const PostPublishedPageDocument = gql`
         updatedAt
         author
         category
+        intro
       }
     }
   }
@@ -325,6 +345,71 @@ export type PostDetailLazyQueryHookResult = ReturnType<
 export type PostDetailQueryResult = Apollo.QueryResult<
   PostDetailQuery,
   PostDetailQueryVariables
+>
+export const PostPublishedDetailDocument = gql`
+  query postPublishedDetail($input: PostPublishedDetailInput!) {
+    postPublishedDetail(input: $input) {
+      id
+      title
+      intro
+      content
+      updatedAt
+      categoryId
+      author
+      category
+    }
+  }
+`
+
+/**
+ * __usePostPublishedDetailQuery__
+ *
+ * To run a query within a React component, call `usePostPublishedDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostPublishedDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostPublishedDetailQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePostPublishedDetailQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PostPublishedDetailQuery,
+    PostPublishedDetailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    PostPublishedDetailQuery,
+    PostPublishedDetailQueryVariables
+  >(PostPublishedDetailDocument, options)
+}
+export function usePostPublishedDetailLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PostPublishedDetailQuery,
+    PostPublishedDetailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PostPublishedDetailQuery,
+    PostPublishedDetailQueryVariables
+  >(PostPublishedDetailDocument, options)
+}
+export type PostPublishedDetailQueryHookResult = ReturnType<
+  typeof usePostPublishedDetailQuery
+>
+export type PostPublishedDetailLazyQueryHookResult = ReturnType<
+  typeof usePostPublishedDetailLazyQuery
+>
+export type PostPublishedDetailQueryResult = Apollo.QueryResult<
+  PostPublishedDetailQuery,
+  PostPublishedDetailQueryVariables
 >
 export const PostPublishDocument = gql`
   mutation postPublish($input: PostPublishInput!) {

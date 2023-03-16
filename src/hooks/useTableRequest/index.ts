@@ -17,6 +17,7 @@ const useTableRequest = <T = any>({
   gqlDataField,
   form,
   buildVariables,
+  refreshDeps,
 }: {
   gql: DocumentNode
   gqlDataField: string
@@ -28,6 +29,7 @@ const useTableRequest = <T = any>({
     },
     formData: UnknownObject,
   ) => UnknownObject
+  refreshDeps?: React.DependencyList
 }) => {
   const apolloClient = useApolloClient()
 
@@ -64,7 +66,10 @@ const useTableRequest = <T = any>({
     },
   )
 
-  const data = useAntdTable(request, { form })
+  const data = useAntdTable(request, {
+    form,
+    refreshDeps,
+  })
 
   return data
 }

@@ -14,7 +14,7 @@
     "ncu": "npx npm-check-updates -u",
     "commit": "npx git-cz",
     "lint:ts": "tsc --noEmit && eslint src --ext .ts,.tsx",
-    "gen:gql": "fruits-chain-gc http://localhost:3000/api/graphql --no-ignore-eslint",
+    "gen:gql": "fruits-chain-gc http://localhost:3000/api/graphql --no-ignore-eslint --scalars BigDecimal:number ID:string Date:string DateTime:string",
     "prisma:gen": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:push": "prisma db push",

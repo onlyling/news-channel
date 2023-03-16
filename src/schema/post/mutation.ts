@@ -35,6 +35,7 @@ export const PostAdd = mutationField('postAdd', {
         data: {
           title: input.title,
           categoryId: input.categoryId,
+          intro: input.intro,
           content: input.content,
           published: input.published,
           authorId: session!.id,

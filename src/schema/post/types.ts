@@ -7,6 +7,7 @@ export const Post = objectType({
   definition(t) {
     t.field(NPPost.id)
     t.field(NPPost.title)
+    t.field(NPPost.intro)
     t.field(NPPost.content)
     t.field(NPPost.published)
     t.field(NPPost.updatedAt)
@@ -66,6 +67,7 @@ export const PostAddInput = inputObjectType({
     t.int('id')
     t.nonNull.int('categoryId')
     t.nonNull.string('title')
+    t.nonNull.string('intro')
     t.string('content')
     t.nonNull.boolean('published')
   },
@@ -73,6 +75,13 @@ export const PostAddInput = inputObjectType({
 
 export const PostDetailInput = inputObjectType({
   name: 'PostDetailInput',
+  definition(t) {
+    t.nonNull.int('id')
+  },
+})
+
+export const PostPublishedDetailInput = inputObjectType({
+  name: 'PostPublishedDetailInput',
   definition(t) {
     t.nonNull.int('id')
   },

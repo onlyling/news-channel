@@ -119,6 +119,7 @@ export interface NexusGenInputs {
     categoryId: number // Int!
     content?: string | null // String
     id?: number | null // Int
+    intro: string // String!
     published: boolean // Boolean!
     title: string // String!
   }
@@ -139,6 +140,10 @@ export interface NexusGenInputs {
     // input type
     id: number // Int!
     published: boolean // Boolean!
+  }
+  PostPublishedDetailInput: {
+    // input type
+    id: number // Int!
   }
 }
 
@@ -187,6 +192,7 @@ export interface NexusGenObjects {
     content?: string | null // String
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: number // Int!
+    intro: string // String!
     published: boolean // Boolean!
     title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
@@ -260,6 +266,7 @@ export interface NexusGenFieldTypes {
     content: string | null // String
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: number // Int!
+    intro: string // String!
     published: boolean // Boolean!
     title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
@@ -279,6 +286,7 @@ export interface NexusGenFieldTypes {
     me: NexusGenRootTypes['MeResponse'] // MeResponse!
     postDetail: NexusGenRootTypes['Post'] // Post!
     postPage: NexusGenRootTypes['PostPageResponse'] // PostPageResponse!
+    postPublishedDetail: NexusGenRootTypes['Post'] // Post!
     postPublishedPage: NexusGenRootTypes['PostPageResponse'] // PostPageResponse!
   }
   User: {
@@ -335,6 +343,7 @@ export interface NexusGenFieldTypeNames {
     content: 'String'
     createdAt: 'DateTime'
     id: 'Int'
+    intro: 'String'
     published: 'Boolean'
     title: 'String'
     updatedAt: 'DateTime'
@@ -354,6 +363,7 @@ export interface NexusGenFieldTypeNames {
     me: 'MeResponse'
     postDetail: 'Post'
     postPage: 'PostPageResponse'
+    postPublishedDetail: 'Post'
     postPublishedPage: 'PostPageResponse'
   }
   User: {
@@ -411,6 +421,10 @@ export interface NexusGenArgTypes {
       // args
       input?: NexusGenInputs['PostPageInput'] | null // PostPageInput
       page?: NexusGenInputs['Page'] | null // Page
+    }
+    postPublishedDetail: {
+      // args
+      input: NexusGenInputs['PostPublishedDetailInput'] // PostPublishedDetailInput!
     }
     postPublishedPage: {
       // args

@@ -28,7 +28,8 @@ model Post {
   authorId   Int
   categoryId Int
   title      String
-  content    String?
+  intro      String
+  content    String?  @db.Text
   published  Boolean  @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

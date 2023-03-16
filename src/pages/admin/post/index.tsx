@@ -1,7 +1,6 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Form, Space, Table, Divider, Button, Card, Tag } from 'antd'
 import type { ColumnsType } from 'antd/es/table/interface'
-import dayjs from 'dayjs'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -13,6 +12,7 @@ import {
 } from '@/graphql/operations/__generated__/post.generated'
 import useTableRequest from '@/hooks/useTableRequest'
 import LayoutAdmin, { LayoutAdminContent } from '@/layouts/admin'
+import { formatUpdatedAt } from '@/libs/day'
 import AdminPostFormSearch from '@/page-components/admin/post/form-search'
 import type { ItemData } from '@/page-components/admin/post/interface'
 
@@ -58,7 +58,7 @@ const AdminPost: React.FC = () => {
       title: '最后更新时间',
       dataIndex: 'updatedAt',
       width: 160,
-      render: text => dayjs(text).format('YYYY-MM-DD HH:mm'),
+      render: text => formatUpdatedAt(text),
     },
     {
       title: '操作',

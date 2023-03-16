@@ -11,6 +11,7 @@ interface FormValues {
   id: number
   title: string
   categoryId: number
+  intro: string
   content: string
 }
 
@@ -29,14 +30,13 @@ const AdminPostFormAdd: React.FC<AdminPostFormAddProps> = ({
 
   const genClick = (status: 1 | 2) => () => {
     form.validateFields().then(values => {
-      console.log(values)
-
       mutationPostAdd({
         variables: {
           input: {
             id: values.id,
             title: values.title,
             categoryId: values.categoryId,
+            intro: values.intro,
             content: values.content,
             published: status === 2,
           },
@@ -80,7 +80,19 @@ const AdminPostFormAdd: React.FC<AdminPostFormAddProps> = ({
               message: '请输入标题',
             },
           ]}>
-          <Input placeholder="请输入标题" />
+          <Input placeholder="请输入标题" maxLength={120} />
+        </Form.Item>
+
+        <Form.Item
+          label="简介"
+          name="intro"
+          rules={[
+            {
+              required: true,
+              message: '请输入简介',
+            },
+          ]}>
+          <Input placeholder="请输入简介" maxLength={180} />
         </Form.Item>
 
         <Form.Item label="内容" name="content">
