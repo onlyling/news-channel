@@ -8,7 +8,11 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        mobile: { max: '768px' },
+      },
+    },
   },
   plugins: [],
   corePlugins: {

@@ -24,8 +24,10 @@ const Index: React.FC = () => {
   return (
     <LayoutPortal activedCategory={post?.categoryId}>
       {loadingPostPublishedDetail ? null : (
-        <div className="px-[32px]">
-          <h1 className="pt-[32px]">{post?.title}</h1>
+        <div className="px-[32px] mobile:px-[8px]">
+          <h1 className="pt-[32px] mobile:text-[18px] mobile:pt-[8px]">
+            {post?.title}
+          </h1>
 
           <p>
             <span className="mr-4">
@@ -39,7 +41,7 @@ const Index: React.FC = () => {
             </span>
           </p>
 
-          <p className="py-[12px] bg-blue-100 pl-[32px] border-solid border-0 border-l-[4px] border-l-blue-400 text-blue-400">
+          <p className="text-[16px] leading-[22px] py-[12px] pl-[32px] bg-blue-100 border-solid border-0 border-l-[4px] border-l-blue-400 text-blue-400 mobile:py-[12px] mobile:pl-[12px] mobile:text-[12px] mobile:leading-[16px]">
             {post?.intro}
           </p>
 
